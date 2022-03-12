@@ -43,7 +43,7 @@ const MessageInput = () => {
 
           <TextInput 
           style={styles.input}
-          value={message}
+          value={message||""}
           onChangeText={setMessage}
           placeholder='Message ...'
           />
