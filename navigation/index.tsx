@@ -5,16 +5,17 @@
  */
  import { FontAwesome } from '@expo/vector-icons';
  import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
- import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
+ import { NavigationContainer, DefaultTheme, DarkTheme, useNavigation } from '@react-navigation/native';
  import { createNativeStackNavigator } from '@react-navigation/native-stack';
  import * as React from 'react';
- import { ColorSchemeName, Text, View, Image, useWindowDimensions } from 'react-native';
+ import { ColorSchemeName, Text, View, Image, useWindowDimensions, TouchableOpacity } from 'react-native';
  
  import Colors from '../constants/Colors';
  import useColorScheme from '../hooks/useColorScheme';
  import ModalScreen from '../screens/ModalScreen';
  import NotFoundScreen from '../screens/NotFoundScreen';
  import HomeScreen from '../screens/HomeScreen';
+ import UsersScreen from '../screens/UsersScreen';
  import TabTwoScreen from '../screens/TabTwoScreen';
  import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../types';
  import LinkingConfiguration from './LinkingConfiguration';
@@ -53,6 +54,13 @@
         component={ChatRoomScreen} 
         options={{ headerTitle: ChatRoomHeader,headerBackVisible:false}}
         />
+       <Stack.Screen
+        name="UsersScreen" 
+        component={UsersScreen} 
+        options={{
+          title:"Users",
+        }}
+        />
        <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
      </Stack.Navigator>
    );
@@ -61,6 +69,7 @@
  const HomeHeader = (props)=>{
  
    const {width} = useWindowDimensions();
+   const navigation = useNavigation();
  
    return(
      <View 
@@ -80,7 +89,9 @@
        <Text style={{flex:1,textAlign:"center",marginLeft:35,fontWeight:'bold'}}>Home</Text>
        <View style={{flexDirection:"row"}}>
          <Feather  name="camera" size={24} color="black" style={{marginHorizontal:10} }/>
-         <Feather name="edit-2" size={24} color="black" style={{marginHorizontal:10}} />
+         <TouchableOpacity onPress={()=>navigation.navigate('UsersScreen')}>
+            <Feather name="edit-2" size={24} color="black" style={{marginHorizontal:10}} />
+         </TouchableOpacity>
        </View>
      </View>
    )
